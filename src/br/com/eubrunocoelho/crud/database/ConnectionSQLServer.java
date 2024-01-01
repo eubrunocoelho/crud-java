@@ -12,8 +12,8 @@ public class ConnectionSQLServer {
         var user = Configuration.getValue("db.User");
         var password = Configuration.getValue("db.Password");
 
-        try (Connection connection = DriverManager.getConnection(url, user, password)) {
-            return connection;
+        try {
+            return DriverManager.getConnection(url, user, password);
         } catch (SQLException e) {
             System.err.println("Erro ao estabelecer conexão com o banco de dados: " + e.getMessage());
 
