@@ -1,3 +1,6 @@
+# .gitignore
+config.properties
+
 ### IntelliJ IDEA ###
 out/
 !**/src/main/**/out/
