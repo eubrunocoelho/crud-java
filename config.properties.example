@@ -1,0 +1,4 @@
+# config.properties
+db.Url=jdbc:sqlserver://localhost:1433;databaseName=crud_java;encrypt=false
+db.User=sa
+db.Password=
