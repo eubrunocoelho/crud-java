@@ -1,4 +1,4 @@
-package br.com.eubrunocoelho.crud;
+package br.com.eubrunocoelho.crud.config;
 
 import java.io.FileInputStream;
 import java.io.IOException;
