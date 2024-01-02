@@ -6,24 +6,23 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class UserDAO {
-    public static void addUser(String name, String email, int age, String city) {
-        var SQL = "INSERT INTO users (name, email, age, city) VALUES (?, ?, ?, ?)";
+public class BookDAO {
+    public static void addUser(String title, String author, int pages) {
+        var SQL = "INSERT INTO books (title, author, pages) VALUES (?, ?, ?)";
 
         try (
                 Connection connection = ConnectionSQLServer.getConnection();
                 PreparedStatement statement = connection.prepareStatement(SQL)
         ) {
-            statement.setString(1, name);
-            statement.setString(2, email);
-            statement.setInt(3, age);
-            statement.setString(4, city);
+            statement.setString(1, title);
+            statement.setString(2, author);
+            statement.setInt(3, pages);
+            
+            int affectedLines = statement.executeUpdate();
 
-            // Execute a instrução SQL dentro do bloco try
-            int linhasAfetadas = statement.executeUpdate();
-
-            if (linhasAfetadas > 0) {
+            if (affectedLines > 0) {
                 System.out.println("Usuário adicionado com sucesso!");
+
                 connection.close();
             } else {
                 System.out.println("Falha ao adicionar usuário.");
