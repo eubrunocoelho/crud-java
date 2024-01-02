@@ -22,7 +22,7 @@ public class BookDAO {
             statement.setString(2, author);
             statement.setInt(3, pages);
 
-            int affectedLines = statement.executeUpdate();
+            var affectedLines = statement.executeUpdate();
 
             if (affectedLines > 0) {
                 System.out.println("Livro adicionado com sucesso!");
@@ -99,5 +99,60 @@ public class BookDAO {
         }
 
         return books;
+    }
+
+    public static void updateBook(int id, String title, String author, int pages) {
+        var SQL = "UPDATE books SET title = ?, author = ?, pages = ? WHERE id = ?";
+
+        try (
+                Connection connection = ConnectionSQLServer.getConnection();
+                PreparedStatement statement = connection.prepareStatement(SQL)
+        ) {
+            statement.setString(1, title);
+            statement.setString(2, author);
+            statement.setInt(3, pages);
+            statement.setInt(4, id);
+
+            var affectedLines = statement.executeUpdate();
+
+            if (affectedLines > 0) {
+                System.out.println("Livro atualizado com sucesso!");
+
+                connection.close();
+            } else {
+                System.out.println("Falha ao atualizar livro.");
+
+                connection.close();
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao atualizar o livro: " + e.getMessage());
+            throw new RuntimeException("Erro ao atualizar o livro.", e);
+        }
+    }
+
+    public static void deleteBook(int id) {
+        var SQL = "DELETE FROM books WHERE id = ?";
+
+        try (
+                Connection connection = ConnectionSQLServer.getConnection();
+                PreparedStatement statement = connection.prepareStatement(SQL)
+        ) {
+            statement.setInt(1, id);
+
+            var affectedLines = statement.executeUpdate();
+
+            if (affectedLines > 0) {
+                System.out.println("Livro deletado com sucesso!");
+
+                connection.close();
+            } else {
+                System.out.println("Falha ao deletar o livro.");
+
+                connection.close();
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao deletar o livro: " + e.getMessage());
+            throw new RuntimeException("Erro ao deletar livro.", e);
+        }
     }
 }

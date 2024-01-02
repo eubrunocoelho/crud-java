@@ -24,4 +24,12 @@ public class BookService {
             System.out.println("Páginas: " + book.getPages());
         }
     }
+
+    public void updateBook(int id, String title, String author, int pages) {
+        BookDAO.updateBook(id, title, author, pages);
+    }
+
+    public void deleteBook(int id) {
+        BookDAO.deleteBook(id);
+    }
 }
