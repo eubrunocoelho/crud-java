@@ -1,4 +1,4 @@
-package br.com.eubrunocoelho.crud.DAO;
+package br.com.eubrunocoelho.crud.dao;
 
 import br.com.eubrunocoelho.crud.database.ConnectionSQLServer;
 import br.com.eubrunocoelho.crud.models.Book;
@@ -39,7 +39,7 @@ public class BookDAO {
         }
     }
 
-    public static void findBook(int id) {
+    public static boolean findBook(int id) {
         var SQL = "SELECT * FROM books WHERE id = ?";
 
         try (
@@ -50,21 +50,13 @@ public class BookDAO {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    var title = resultSet.getString("title");
-                    var author = resultSet.getString("author");
-                    var pages = resultSet.getInt("pages");
-
-                    System.out.println("Livro encontrado: ");
-                    System.out.println("ID: " + id);
-                    System.out.println("Título: " + title);
-                    System.out.println("Autor: " + author);
-                    System.out.println("Páginas: " + pages);
-
                     connection.close();
+
+                    return true;
                 } else {
-                    System.out.println("Livro não encontrado para o ID: " + id);
-
                     connection.close();
+
+                    return false;
                 }
             }
         } catch (SQLException e) {
